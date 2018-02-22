@@ -5,14 +5,11 @@ import createSagaMiddleware from 'redux-saga'
 import reducer from './ducks'
 import sagas from './sagas'
 
-const sagaMiddleware = createSagaMiddleware();
-
-export const initStore = () => {
+export const initStore = (middlewares = []) => {
+  const sagaMiddleware = createSagaMiddleware()
   const store = createStore(
     reducer,
-    composeWithDevTools(
-      applyMiddleware(sagaMiddleware)
-    )
+    composeWithDevTools(applyMiddleware(sagaMiddleware))
   )
   sagaMiddleware.run(sagas)
 
